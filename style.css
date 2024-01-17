@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+    background-image: url(./icon/alone-time.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+    width: 450px;
+    background-color: #FFF;
+    border-radius: 15px;
+    padding: 25px;
+    min-height: 200px;
+    height: auto;
+}
+
+h1{
+    text-align: center;
+}
+
+.top input {
+    width: 80%;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+    background-color: rgb(216, 216, 216);
+    padding: 10px;
+    
+}
+.top {
+    margin: 10px 0px;
+}
+.btn {
+    width: 19%;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+    background-color: #71B340;
+    color: #FFF;
+}
+input:active, input:hover  {
+    background-color: #AFCBFF;
+}
+
+.btn:hover {
+    background-color: grey;
+    color: black;
+}
+.toDos {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 1rem;
+}
+
+.todoItem {
+    display: flex;
+    height: auto;
+    background-color: #AFCBFF;
+    width: 100%;
+    justify-content: space-between;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.action {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+#errorText {
+    text-align: center;
+    background-color: #e27883;
+    color: aliceblue;
+    height: 20px;
+    width: 80%;
+    border-radius: 5px;
+    display: none;
+}
+
+.todoItem:has(input.check:checked){
+    background-color : #7DCD85;
+}
+
+.deletebutton , .editButton {
+    padding: 3px 5px;
+}
