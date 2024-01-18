@@ -89,7 +89,17 @@ input:active, input:hover  {
 .todoItem:has(input.check:checked){
     background-color : #7DCD85;
 }
+/* .todoItem:has(button.editButton:active) , .todoItem:has(button.editButton:hover) {
+    background-color: coral;
+} */
 
-.deletebutton , .editButton {
+.Button {
     padding: 3px 5px;
+}
+
+.hidden {
+    display: none;
+}
+.block {
+    display: block;
 }

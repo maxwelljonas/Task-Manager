@@ -14,7 +14,9 @@ function updateUI () {
     for (let i=0; i<todos.length; i++) {
         // console.log(todos[i]);
         var item = document.createElement('div')
-        item.className = 'todoItem'
+        item.className = 'todoItem';
+        item.id = 'todoItem_'+ i;
+
 
         var content = document.createElement('div')
         content.className = 'content'
@@ -25,11 +27,11 @@ function updateUI () {
 
 
         var edit = document.createElement('button')
-        edit.className = 'editButton'
+        edit.className = 'Button'
         edit.innerText = 'Edit'
 
         edit.addEventListener('click', function () {
-            editTask(i) 
+            editTask(i)
         })
 
         var checkbox = document.createElement('input')
@@ -37,7 +39,7 @@ function updateUI () {
         checkbox.className = 'check'
 
         var dlt = document.createElement('button')
-        dlt.className = 'deletebutton'
+        dlt.className = 'Button'
         dlt.innerText = 'Delete'
 
         dlt.addEventListener('click', function() {
@@ -76,12 +78,49 @@ function Additem () {
     updateUI();
 }
 
-function editTask (item_index) {
-    var newContent = prompt('Enter the new task: ', todos[item_index]);
-    if (newContent !== null) {
-        todos[item_index] = newContent.trim()
+function editTask(item_index) {
+    var selected = document.getElementById('todoItem_' + item_index);
+
+    // Get the existing content text
+    var existingContent = todos[item_index];
+
+    // Create an input element
+    var inputField = document.createElement('input');
+    inputField.type = 'text';
+    inputField.value = existingContent;
+
+    // Replace the content div with the input field
+    selected.replaceChild(inputField, selected.querySelector('.content'));
+
+
+    // Add a Save button to apply changes
+    var saveButton = document.createElement('button');
+    saveButton.className = 'Button';
+    saveButton.innerText = 'Save';
+
+    var cancelButton = document.createElement('button');
+    cancelButton.className = 'Button';
+    cancelButton.innerText = 'Cancel';
+
+
+    let action_box = selected.querySelector('.action');
+    action_box.innerHTML=''
+    // console.log(action_box)
+    
+
+    // Define a function to save the changes
+    saveButton.addEventListener('click', function () {
+        todos[item_index] = inputField.value.trim();
         updateUI();
-    }
+    });
+    cancelButton.addEventListener('click', function () {
+        updateUI();
+    });
+
+    // Append the Save button
+    action_box.appendChild(saveButton);
+    action_box.appendChild(cancelButton);
 }
+
 
 updateUI();
