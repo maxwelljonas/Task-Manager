@@ -70,6 +70,9 @@ input:active, input:hover  {
     border-radius: 5px;
     padding: 10px;
 }
+.todoItem.completed {
+    background-color: #7DCD85;
+}
 
 .action {
     display: flex;

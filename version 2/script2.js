@@ -5,15 +5,24 @@ const tasks = document.getElementById('toDosContainer');
 
 
 var todos = [
-    { id: 1, title: "Do Laundry", status: "Incomplete" },
-    { id: 2, title: "Go for a run", status: "Complete" },
-    { id: 3, title: "Buy groceries", status: "Incomplete" },
-    { id: 4, title: "Take siesta", status: "Incomplete" }
+    { id: 1, title: "Do Laundry", status: "incomplete" },
+    { id: 2, title: "Go for a run", status: "incomplete" },
+    { id: 3, title: "Buy groceries", status: "incomplete" },
+    { id: 4, title: "Take siesta", status: "incomplete" }
 ];
 
     addButton.addEventListener('click', function() {
-        Additem();
+        addTask();
     })
+
+class taskItemz{
+    constructor (task_id, task_name){
+        this.id = task_id;
+        this.title = task_name;
+        this.status = "incomplete"
+    }
+}
+
 
 
 function updateUI () {
@@ -23,7 +32,9 @@ function updateUI () {
         var item = document.createElement('div')
         item.className = 'todoItem';
         item.id = 'todoItem_'+ i;
-
+        if(todos[i].status === 'completed') {
+            item.classList.add('completed')
+        }
 
         var content = document.createElement('div')
         content.className = 'content'
@@ -41,9 +52,23 @@ function updateUI () {
             editTask(i)
         })
 
-        var checkbox = document.createElement('input')
+        let checkbox = document.createElement('input')
         checkbox.type = 'checkbox'
         checkbox.className = 'check'
+
+        if(todos[i].status === 'completed') {
+            checkbox.checked = true;
+        }
+
+        checkbox.addEventListener('change', function () {
+            if(todos[i].status == "completed") {
+                todos[i].status = "incomplete";
+            }
+            else {
+                todos[i].status = "completed";
+            }
+            updateUI();
+        })
 
         var dlt = document.createElement('button')
         dlt.className = 'Button'
@@ -69,13 +94,17 @@ function deleteItem(item_index) {
     updateUI();
 }
 
-function Additem () {
-    var thing = document.getElementById('inputValue');
-    var error = document.getElementById('errorText');
+function addTask () {
+    let newTask = document.getElementById('inputValue');
+    let error = document.getElementById('errorText');
 
-    if (thing.value !== '') {
-        todos.push(thing.value);
-        thing.value = '';
+    if (newTask.value !== '') {
+        const newTaskId = todos.length + 1;
+
+        const new_task_ = new taskItemz(newTaskId, newTask.value)
+        todos.push(new_task_);
+
+        newTask.value = '';
         error.style.display = 'none';
     }
     else {
@@ -89,7 +118,7 @@ function editTask(item_index) {
     var selected = document.getElementById('todoItem_' + item_index);
 
     // Get the existing content text
-    var existingContent = todos[item_index];
+    var existingContent = todos[item_index].title;
 
     // Create an input element
     var inputField = document.createElement('input');
@@ -117,7 +146,7 @@ function editTask(item_index) {
 
     // Define a function to save the changes
     saveButton.addEventListener('click', function () {
-        todos[item_index] = inputField.value.trim();
+        todos[item_index].title = inputField.value.trim();
         updateUI();
     });
     cancelButton.addEventListener('click', function () {
